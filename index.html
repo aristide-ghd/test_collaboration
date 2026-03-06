@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion de Budget - Revenus</title>
+    <title>Gestion de Budget - Synchro</title>
     <style>
         :root {
             --bg-color: #f4f7f6;
@@ -38,19 +38,32 @@
 
         h2, h3 { margin-top: 0; text-align: center; }
 
-        /* Style du Résumé Revenus */
-        .summary-card {
-            background-color: #f9fffb;
-            border: 1px solid #d4edda;
-            text-align: center;
+        /* Grille de Résumé */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
         }
-        .income-label { font-size: 0.9rem; color: #666; text-transform: uppercase; }
-        #total-revenus { font-size: 2rem; font-weight: bold; color: var(--income); margin: 10px 0 0 0; }
+        .summary-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--card-bg);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .income-border { border-bottom: 4px solid var(--income); }
+        .expense-border { border-bottom: 4px solid var(--expense); }
 
-        /* Style du Formulaire */
-        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
-        label { margin-bottom: 5px; font-weight: bold; font-size: 0.85rem; }
-        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
+        .label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        .val { font-size: 1.3rem; font-weight: bold; margin-top: 5px; }
+        .val-income { color: var(--income); }
+        .val-expense { color: var(--expense); }
+
+        /* Formulaire */
+        .form-group { margin-bottom: 12px; display: flex; flex-direction: column; }
+        label { margin-bottom: 4px; font-weight: bold; font-size: 0.8rem; }
+        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
         button {
             width: 100%;
             background-color: var(--primary);
@@ -60,24 +73,26 @@
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
+            margin-top: 10px;
         }
 
-        /* Style de l'Historique */
+        /* Historique */
         #history-list { list-style: none; padding: 0; margin: 0; }
         .transaction-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px;
-            border-bottom: 1px solid #eee;
             border-left: 5px solid #ddd;
             margin-bottom: 8px;
             background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
         .transaction-item.revenu { border-left-color: var(--income); }
         .transaction-item.depense { border-left-color: var(--expense); }
         .info { display: flex; flex-direction: column; }
-        .info span { font-size: 0.75rem; color: #95a5a6; }
+        .info span { font-size: 0.7rem; color: #95a5a6; text-transform: capitalize; }
         .amount { font-weight: bold; }
         .revenu .amount { color: var(--income); }
         .depense .amount { color: var(--expense); }
@@ -86,22 +101,28 @@
 <body>
 
 <div class="container">
-    <h2>Mon Budget</h2>
+    <h2>Gestion de Budget</h2>
 
-    <div class="card summary-card">
-        <div class="income-label">Total Revenus</div>
-        <p id="total-revenus">0.00 €</p>
+    <div class="summary-grid">
+        <div class="summary-item income-border">
+            <div class="label">Revenus</div>
+            <div id="total-revenus" class="val val-income">0.00 €</div>
+        </div>
+        <div class="summary-item expense-border">
+            <div class="label">Dépenses</div>
+            <div id="total-depenses" class="val val-expense">0.00 €</div>
+        </div>
     </div>
 
     <div class="card">
         <form id="transaction-form">
             <div class="form-group">
                 <label>Description</label>
-                <input type="text" id="description" placeholder="Ex: Salaire" required>
+                <input type="text" id="description" placeholder="Ex: Salaire, Uber..." required>
             </div>
             <div class="form-group">
                 <label>Montant (€)</label>
-                <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+                <input type="number" id="amount" step="0.01" min="0" placeholder="0.00" required>
             </div>
             <div class="form-group">
                 <label>Type</label>
@@ -117,7 +138,7 @@
                     <option value="transport">Transport</option>
                     <option value="logement">Logement</option>
                     <option value="loisirs">Loisirs</option>
-                    <option value="versement">Versement</option>
+                    <option value="salaire">Salaire</option>
                 </select>
             </div>
             <button type="submit">Ajouter</button>
