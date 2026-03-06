@@ -1,0 +1,148 @@
+:root {
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --primary: #3498db;
+    --income: #2ecc71;
+    --expense: #e74c3c;
+    --text: #2c3e50;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    color: var(--text);
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+
+h2, h3 { 
+    margin-top: 0; 
+    text-align: center; 
+}
+
+.solde-card {
+    text-align: center;
+    padding: 25px;
+    background: #fff;
+}
+
+.solde-label { 
+    font-size: 0.9rem; 
+    color: #7f8c8d; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+
+#solde { 
+    font-size: 2.5rem; 
+    font-weight: bold; 
+    margin-top: 5px; 
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.summary-item {
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--card-bg);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.label { 
+    font-size: 0.7rem; 
+    color: #666; 
+    text-transform: uppercase; 
+}
+
+.val { 
+    font-size: 1.2rem; 
+    font-weight: bold; 
+    margin-top: 5px; 
+}
+
+.val-income { color: var(--income); }
+.val-expense { color: var(--expense); }
+
+.form-group { 
+    margin-bottom: 12px; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+label { 
+    margin-bottom: 4px; 
+    font-weight: bold; 
+    font-size: 0.8rem; 
+}
+
+input, select { 
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+}
+
+button {
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#history-list { 
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-left: 5px solid #ddd;
+    margin-bottom: 8px;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.transaction-item.revenu { border-left-color: var(--income); }
+.transaction-item.depense { border-left-color: var(--expense); }
+
+.info { 
+    display: flex; 
+    flex-direction: column; 
+}
+
+.info span { 
+    font-size: 0.7rem; 
+    color: #95a5a6; 
+}
+
+.amount { font-weight: bold; }
+.revenu .amount { color: var(--income); }
+.depense .amount { color: var(--expense); }
